@@ -22,18 +22,27 @@
     </style>
 </head>
 <body>
-    <table>
+    <table id="myTable">
         <tr>
             <th>Дата</th>
             <th>День недели</th>
         </tr>
-        <!-- Вставка данных в таблицу -->
-        {% for i in 0..10 %}
-        <tr>
-            <td>{{ today.addingTimeInterval(TimeInterval(86400 * i)).formatted("dd.MM.yyyy") }}</td>
-            <td>{{ today.addingTimeInterval(TimeInterval(86400 * i)).formatted("EEEE") }}</td>
-        </tr>
-        {% endfor %}
     </table>
+
+    <script>
+        var table = document.getElementById("myTable");
+        var currentDate = new Date();
+
+        for (var i = 0; i < 10; i++) {
+            currentDate.setDate(currentDate.getDate() + 1);
+
+            var row = table.insertRow();
+            var dateCell = row.insertCell();
+            var dayCell = row.insertCell();
+
+            dateCell.innerHTML = currentDate.toLocaleDateString("en-US");
+            dayCell.innerHTML = currentDate.toLocaleDateString("en-US", { weekday: 'long' });
+        }
+    </script>
 </body>
 </html>
